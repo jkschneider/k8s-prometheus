@@ -27,8 +27,6 @@ spec:
               mountPath: /etc/prometheus/
             - name: prometheus-storage-volume
               mountPath: /prometheus/
-            - name: rules-volume
-              mountPath: /etc/prometheus-rules
       securityContext:
         fsGroup: 2000
         runAsNonRoot: true
@@ -41,6 +39,3 @@ spec:
         - name: prometheus-storage-volume
           persistentVolumeClaim:
             claimName: prometheus-claim
-        - name: rules-volume
-        configMap:
-          name: prometheus-rules

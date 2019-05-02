@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
-metadata: 
-  annotations: 
+metadata:
+  annotations:
     prometheus.io/scrape: "true"
  #   cloud.google.com/load-balancer-type: "Internal"
   name: prometheus-service
@@ -9,10 +9,10 @@ metadata:
   labels:
     name: prometheus
 spec:
-  selector: 
-    app: prometheus-server 
-  ports: 
-    - name: prometheus 
+  selector:
+    app: prometheus-server
+  ports:
+    - name: prometheus
       port: 8080
       targetPort: prometheus
-#  type: LoadBalancer
+  type: LoadBalancer

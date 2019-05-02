@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rsocket-proxy-deployment
+  namespace: monitoring
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rsocket-proxy-server
+    spec:
+      serviceAccountName: monitoring
+      containers:
+        - name: prometheus-rsocket-proxy
+          image: micrometermetrics/prometheus-rsocket-proxy:latest
+          ports:
+            - name: rsocket-proxy
+              containerPort: 8080
+            - name: rsocket-in
+              containerPort: 7001
+      securityContext:
+        fsGroup: 2000
+        runAsNonRoot: true
+        runAsUser: 1000

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: "true"
+  name: rsocket-proxy-service
+  namespace: monitoring
+  labels:
+    name: rsocket-proxy
+spec:
+  selector:
+    app: rsocket-proxy-server
+  ports:
+    - name: rsocket-proxy
+      port: 8080
+      targetPort: rsocket-proxy
+    - name: rsocket-in
+      port: 7001
+      targetPort: 7001
+  type: LoadBalancer
