@@ -1,16 +1,19 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: grafana
   namespace: monitoring
 spec:
-  serviceAccountName: monitoring
   replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
   template:
     metadata:
       labels:
-        name: grafana
+        app: grafana
     spec:
+      serviceAccountName: monitoring
       containers:
       - name: grafana
         image: grafana/grafana:6.1.6
