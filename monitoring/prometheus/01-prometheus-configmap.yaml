@@ -20,3 +20,10 @@ data:
     - job_name: 'kubernetes-pods'
       kubernetes_sd_configs:
         - role: pod
+      relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_label_app]
+          action: keep
+          regex: prometheus-proxy
+        - source_labels: [__meta_kubernetes_pod_container_port_number]
+          action: keep
+          regex: 8080
