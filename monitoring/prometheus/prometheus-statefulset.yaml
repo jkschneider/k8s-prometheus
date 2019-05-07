@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: prometheus-deployment
+  name: prometheus-statefulset
   namespace: monitoring
 spec:
   replicas: 1
@@ -13,7 +13,7 @@ spec:
       serviceAccountName: monitoring
       containers:
         - name: prometheus
-          image: prom/prometheus:v2.4.3
+          image: prom/prometheus:v2.9.2
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"

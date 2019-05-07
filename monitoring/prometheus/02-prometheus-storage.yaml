@@ -11,7 +11,7 @@ allowVolumeExpansion: true
 apiVersion: "v1"
 kind: "PersistentVolume"
 metadata:
-  name: data-volume-1
+  name: prometheus-volume-1
   namespace: monitoring
 spec:
   capacity:

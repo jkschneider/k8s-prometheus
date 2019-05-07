@@ -1,11 +1,37 @@
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: fast
+  namespace: monitoring
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+allowVolumeExpansion: true
+---
+apiVersion: "v1"
+kind: "PersistentVolume"
+metadata:
+  name: grafana-volume-1
+  namespace: monitoring
+spec:
+  capacity:
+    storage: 32Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: fast
+  gcePersistentDisk:
+    fsType: ext4
+    pdName: grafana-volume
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: grafana-storage
+  name: grafana-claim
   namespace: monitoring
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 4Gi
+      storage: 32Gi
