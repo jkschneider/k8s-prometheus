@@ -4,7 +4,7 @@ metadata:
   name: rsocket-proxy-deployment
   namespace: monitoring
 spec:
-  replicas: 5
+  replicas: 1
   template:
     metadata:
       labels:
@@ -12,12 +12,12 @@ spec:
     spec:
       serviceAccountName: monitoring
       containers:
-        - name: prometheus-rsocket-proxy
+        - name: rsocket-proxy
           image: micrometermetrics/prometheus-rsocket-proxy:latest
           ports:
-            - name: rsocket-proxy
+            - name: scrape
               containerPort: 8080
-            - name: rsocket-in
+            - name: rsocket
               containerPort: 7001
       securityContext:
         fsGroup: 2000

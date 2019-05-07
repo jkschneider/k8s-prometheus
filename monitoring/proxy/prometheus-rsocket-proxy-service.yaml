@@ -11,10 +11,10 @@ spec:
   selector:
     app: rsocket-proxy-server
   ports:
-    - name: rsocket-proxy
+    - name: scrape
       port: 8080
-      targetPort: rsocket-proxy
-    - name: rsocket-in
+      targetPort: 8080
+    - name: rsocket
       port: 7001
       targetPort: 7001
   type: LoadBalancer
