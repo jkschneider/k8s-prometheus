@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: grafana
@@ -9,8 +9,7 @@ spec:
   template:
     metadata:
       labels:
-        task: monitoring
-        k8s-app: grafana
+        name: grafana
     spec:
       containers:
       - name: grafana

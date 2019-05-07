@@ -1,9 +1,4 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: monitoring
----
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: prometheus-statefulset
@@ -13,7 +8,7 @@ spec:
   template:
     metadata:
       labels:
-        app: prometheus-server
+        app: prometheus
     spec:
       serviceAccountName: monitoring
       containers:
@@ -44,4 +39,3 @@ spec:
         - name: prometheus-storage-volume
           persistentVolumeClaim:
             claimName: prometheus-claim
----

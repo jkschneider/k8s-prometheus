@@ -3,13 +3,13 @@ kind: Service
 metadata:
   annotations:
     prometheus.io/scrape: "true"
-  name: rsocket-proxy-service
+  name: prometheus-proxy-service
   namespace: monitoring
   labels:
-    name: rsocket-proxy
+    name: prometheus-proxy
 spec:
   selector:
-    app: rsocket-proxy-server
+    app: prometheus-proxy
   ports:
     - name: scrape
       port: 8080

@@ -21,21 +21,6 @@ data:
       kubernetes_sd_configs:
         - role: pod
       relabel_configs:
-        - action: drop
-          regex: __meta_kubernetes_pod_label_(.+)
-        - source_labels: [__meta_kubernetes_namespace]
-          action: drop
-        - source_labels: [__meta_kubernetes_pod_name]
-          action: drop
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-          action: drop
-          regex: true
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
-          action: drop
-          regex: (https?)
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-          action: drop
-          regex: true
-        - source_labels: [__address__, __meta_kubernetes_pod_prometheus_io_port]
-          action: drop
-          regex: true
+        - source_labels: [__meta_kubernetes_pod_label_name]
+          action: keep
+          regex: prometheus-proxy

@@ -1,18 +1,18 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rsocket-proxy-deployment
+  name: prometheus-proxy-deployment
   namespace: monitoring
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: rsocket-proxy-server
+        app: prometheus-proxy
     spec:
       serviceAccountName: monitoring
       containers:
-        - name: rsocket-proxy
+        - name: prometheus-proxy
           image: micrometermetrics/prometheus-rsocket-proxy:latest
           ports:
             - name: scrape
