@@ -2,16 +2,16 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: volume-debugger
-  namespace: nexus
+  namespace: monitoring
 spec:
   volumes:
     - name: volume-to-debug
       persistentVolumeClaim:
-       claimName: nexus-claim
+       claimName: pvc-bcebd45d-72a9-11e9-a315-42010a800244
   containers:
     - name: debugger
       image: busybox
       command: ['sleep', '3600']
       volumeMounts:
-        - mountPath: "/nexus-data"
+        - mountPath: "/var/lib/grafana"
           name: volume-to-debug

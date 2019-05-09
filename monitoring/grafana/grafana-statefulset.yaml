@@ -15,16 +15,19 @@ spec:
         app: grafana
     spec:
       serviceAccountName: monitoring
+      securityContext:
+        runAsUser: 472
+        fsGroup: 472
       containers:
-      - name: grafana
-        image: grafana/grafana:6.1.6
-        ports:
-        - containerPort: 3000
-          protocol: TCP
-        volumeMounts:
-        - mountPath: /var/lib/grafana
-          name: grafana-volume
-          readOnly: false
+        - name: grafana
+          image: grafana/grafana:6.1.6
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-volume
+              readOnly: false
   volumeClaimTemplates:
     - metadata:
         name: grafana-volume
