@@ -1,0 +1,40 @@
+apiVersion: storage.k8s.io/v1beta1
+kind: StorageClass
+metadata:
+  name: fast
+  namespace: nexus
+provisioner: kubernetes.io/gce-pd
+parameters:
+  type: pd-ssd
+allowVolumeExpansion: true
+---
+apiVersion: "v1"
+kind: "PersistentVolume"
+metadata:
+  name: nexus-volume-1
+  namespace: nexus
+spec:
+  capacity:
+    storage: 250Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: fast
+  gcePersistentDisk:
+    fsType: ext4
+    pdName: nexus-volume
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nexus-claim
+  namespace: nexus
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "fast"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 250Gi

@@ -17,6 +17,18 @@ spec:
       containers:
       - image: sonatype/nexus3
         name: nexus
+        resources:
+            requests:
+              cpu: 250m
+              # Based on https://support.sonatype.com/hc/en-us/articles/115006448847#mem
+              # and https://twitter.com/analytically/status/894592422382063616:
+              #   Xms == Xmx
+              #   Xmx <= 4G
+              #   MaxDirectMemory >= 2G
+              #   Xmx + MaxDirectMemory <= RAM * 2/3 (hence the request for 4800Mi)
+              #   MaxRAMFraction=1 is not being set as it would allow the heap
+              #     to use all the available memory.
+              memory: 4800Mi
         ports:
         - containerPort: 8081
         - containerPort: 5000

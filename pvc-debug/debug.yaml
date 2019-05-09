@@ -1,0 +1,17 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: volume-debugger
+  namespace: nexus
+spec:
+  volumes:
+    - name: volume-to-debug
+      persistentVolumeClaim:
+       claimName: nexus-claim
+  containers:
+    - name: debugger
+      image: busybox
+      command: ['sleep', '3600']
+      volumeMounts:
+        - mountPath: "/nexus-data"
+          name: volume-to-debug
