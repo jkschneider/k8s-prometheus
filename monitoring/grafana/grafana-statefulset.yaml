@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: grafana
   namespace: monitoring
 spec:
   replicas: 1
+  serviceName: grafana
   selector:
     matchLabels:
       app: grafana
@@ -22,9 +23,15 @@ spec:
           protocol: TCP
         volumeMounts:
         - mountPath: /var/lib/grafana
-          name: grafana-config-volume
+          name: grafana-volume
           readOnly: false
-      volumes:
-      - name: grafana-config-volume
-        persistentVolumeClaim:
-          claimName: grafana-claim
+  volumeClaimTemplates:
+    - metadata:
+        name: grafana-volume
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 128Gi
+        storageClassName: standard
